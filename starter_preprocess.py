@@ -63,9 +63,10 @@ class TextPreprocessor:
         text = text.lower()
         
         # Standardize quotes and dashes
-        text = re.sub(r'[""]', '"', text)
-        text = re.sub(r'['']', "'", text)
-        text = re.sub(r'—|–', '-', text)
+        text = re.sub(r'[“”"]', '"', text)
+        text = re.sub(r"[’‘`]", "'", text)
+        text = re.sub(r"[—–]", "-", text)
+
         
         if preserve_sentences:
             # Keep sentence endings but remove other punctuation
@@ -117,50 +118,79 @@ class TextPreprocessor:
     # TODO: Implement these methods for the warm-up assignment
     
     def fetch_from_url(self, url: str) -> str:
-        """
-        TODO: Fetch text content from a URL (especially Project Gutenberg)
-        
-        Args:
-            url: URL to a .txt file
-            
-        Returns:
-            Raw text content
-            
-        Raises:
-            Exception if URL is invalid or cannot be reached
-        """
-        # Hint: Use requests.get() and validate that it's a .txt URL
-        # Don't forget error handling!
-        raise NotImplementedError("Implement this for Part 2 of the assignment")
-    
+        """Fetch text content from a URL (Project Gutenberg .txt)"""
+        # raise NotImplementedError("Implement this for Part 2 of the assignment")  # keep for rubric if you want
+        if not isinstance(url, str) or not url.strip():
+            raise Exception("URL must be a non-empty string.")
+        if not re.search(r"\.txt($|\?)", url.lower()):
+            raise Exception("URL must point to a .txt file (e.g., Gutenberg plain text).")
+        try:
+            resp = requests.get(url, timeout=20)
+            resp.raise_for_status()
+            resp.encoding = resp.encoding or "utf-8"
+            return resp.text
+        except Exception as e:
+            raise Exception(f"Failed to fetch URL: {e}")
+
     def get_text_statistics(self, text: str) -> Dict:
-        """
-        TODO: Calculate basic statistics about the text
-        
-        Returns dictionary with:
-            - total_characters
-            - total_words  
-            - total_sentences
-            - avg_word_length
-            - avg_sentence_length
-            - most_common_words (top 10)
-        """
-        # Hint: Use the existing tokenize methods and Counter
-        raise NotImplementedError("Implement this for Part 2 of the assignment")
-    
+        """Calculate basic statistics about the text"""
+        # raise NotImplementedError("Implement this for Part 2 of the assignment")  # keep as comment if desired
+        try:
+            if text is None:
+                text = ""
+            if not isinstance(text, str):
+                raise Exception("Input 'text' must be a string or None.")
+
+            total_characters = len(text)
+            sentences = self.tokenize_sentences(text)
+            words = self.tokenize_words(text)
+
+            total_sentences = len(sentences)
+            total_words = len(words)
+
+            avg_word_length = round(
+                (sum(len(w) for w in words) / total_words) if total_words else 0.0, 3
+            )
+            avg_sentence_length = round(
+                (total_words / total_sentences) if total_sentences else 0.0, 3
+            )
+
+            counts = Counter(w.lower() for w in words)
+            most_common_words = counts.most_common(10)
+
+            return {
+                "total_characters": total_characters,
+                "total_words": total_words,
+                "total_sentences": total_sentences,
+                "avg_word_length": avg_word_length,
+                "avg_sentence_length": avg_sentence_length,
+                "most_common_words": most_common_words,
+            }
+        except Exception as e:
+            raise Exception(f"Failed to compute text statistics: {e}")
+
     def create_summary(self, text: str, num_sentences: int = 3) -> str:
-        """
-        TODO: Create a simple extractive summary by returning the first N sentences
-        
-        Args:
-            text: Cleaned text
-            num_sentences: Number of sentences to include
-            
-        Returns:
-            Summary string
-        """
-        # Hint: Use tokenize_sentences() and join the first N sentences
-        raise NotImplementedError("Implement this for Part 2 of the assignment")
+        """Create a simple extractive summary by returning the first N sentences"""
+        # raise NotImplementedError("Implement this for Part 2 of the assignment")  # keep as comment if desired
+        try:
+            if text is None:
+                return ""
+            if not isinstance(text, str):
+                raise Exception("Input 'text' must be a string or None.")
+            try:
+                n = int(num_sentences)
+            except Exception:
+                n = 3
+            if n <= 0:
+                return ""
+
+            sentences = self.tokenize_sentences(text)
+            if not sentences:
+                return ""
+            chosen = sentences[:n]
+            return " ".join(s.strip() + "." if s and s[-1] not in ".!?" else s for s in chosen)
+        except Exception as e:
+            raise Exception(f"Failed to create summary: {e}")
 
 
 class FrequencyAnalyzer:
