@@ -1,14 +1,13 @@
-# Scaffolding Assignment 3 - Gutenberg Text Cleaner
-
+# Scaffolding Assignment 3 - Gutenberg text cleaner
 
 Course: Introduction to AI - Fall 2025
 Student: raghulch
 University at Buffalo
 
-
 ## Overview
 
-This project creates a Flask web app that can download, clean, analyze, and summarize text from Project Gutenberg .txt books.
+
+This assignment will produce a Flask web app that will be able to download, clean, analyze, and summarize text from Project Gutenberg .txt books.
 It was created and tested using GitHub Codespaces, from the scaffolding repository you have been given (scaffolding3_startup).
 
 Here is the full app:
@@ -18,13 +17,13 @@ Cleanses and normalizes the text.
 Calculates significant statistics (characters, words, sentences, etc.).
 Generates a brief (3 sentence) summary.
 Displays first 500 characters of processed text.
-Provides a simple, responsive web interface.
+Provides a simple web interface.
 
-## Part Task Steps
-### Part 1: Code in GitHub Codespaces 
+## Tasks
+### Part 1: Files ran in GitHub Codespaces 
 
 Fork 
-Opened project in GitHub Codespaces.
+Opened this repo in GitHub Codespaces.
 
 Verified Flask and dependencies.
 
@@ -66,82 +65,76 @@ I finished the app.py Flask backend with the following routes:
 Integrated the TextPreprocessor from the file starter_preprocess.py as the API
 
 Included some reasonable checking and handling to check for missing and malformed URLs.
-Improved the list of regex cleaning for the TOC as well as stripped any duplicate "Chapter" lines. 
-Tested API locally in Codespaces (http://127.0.0.0.1:5000).
+Enhanced the regular expression clean tables and simultaneously trimmed the extra Chapter lines. 
+The API was tested locally in Codespaces (http://127.0.0.0.1:5000).
+
 
 ### Part 4: Web UI
 
-Developed /templates/index.html as the frontend webpage.
 
-Added:
+Constructed /templates/index.html as the browser-facing webpage.
 
-Nice-looking input form for Gutenberg URLs
+New Functionalities: 
 
-"Clean & Analyze" button that makes an AJAX POST request to /api/clean
+- Searchable and visually appealing input form for the Gutenberg urls 
+- AJAX POST to /api/clean as invoked by the "Clean & Analyze" button 
+- Spinner added to body of page while cleaning is in process 
+- Results area displays statistics, summary and first 500 characters cleaned 
+- Validation and handling of url and network errors on invalid url 
+- Responsive and light styling through bootstrap5 
+- The above mentioned ui features and functionalities have been tested and confirmed on one of the urls noted below: 
+[Pride and Prejudice] 
+[Frankenstein] 
+[Alice in Wonderland] 
+[Moby Dick]
 
-Processing spinner while cleaning is ongoing
-
-Results div containing statistics, summary, and first 500 cleaned characters
-
-Error handling on invalid URL or network failure
-
-Utilized Bootstrap 5 for responsive design and light styling.
-
-Used the following URLs to test the UI:
-
-(Pride and Prejudice)
-(Frankenstein)
-(Alice in Wonderland)
-(Moby Dick)
-
-![Working Application 1](docs/screenshots/working_application_1.png)
+![Working application 1](docs/screenshots/working_application_1.png)
 ![Working Application 1](docs/screenshots/working_application_2.png)
 ![Working Application 1](docs/screenshots/working_application_3.png)
 ![Working Application 1](docs/screenshots/working_application_4.png)
 
-Confirmed that cleaning started from the first line of the actual story and did not include the title/license. 
-
+I validated that cleaning took place starting from the first line of the actual story and did NOT include the title/license.
 
 ## Set up and run 
-Clone and open in Codespaces
+Clone and open in Codespaces 
 git clone https://github.com/raghuldav/scaffolding3_startup.git
-cd scaffolding3_startup
+cd scaffolding3_startup 
 
-Install dependencies
-python --version
-pip install -r requirements.txt
+Install dependencies 
+python --version 
+pip install -r requirements.txt 
 
-Run the app
-python app.py
+Run the app 
+python app.py 
 
-Open in your browser
-Go to → http://127.0.0.1:5000
+Open in your browser 
+Go to → http://127.0.0.1:5000 
 
-## URLs to try
+## URLs to test 
 
-Pride and Prejudice
-Frankenstein
-Alice in Wonderland
+Pride and Prejudice, 
+Frankenstein, 
+Alice in Wonderland, 
 Moby Dick
 
-## Key Learnings
+## Key Learnings 
 
-Web scraping & cleaning natural language data
-Content normalization through regex
-Flask API design & routing
-Using asynchronous JS fetch and handling JSON
-Building simple AI preprocessing pipelines
-The deployment and testing workflow in GitHub Codespaces
+Web scraping & cleaning natural language data 
+Content normalization through regex 
+Flask API design & routing 
+Using asynchronous JS fetch and handling JSON 
+Building simple AI preprocessing pipelines 
+The deployment and testing workflow in GitHub Codespaces 
 
-## Project Structure
+## Project Structure 
 
 ```text
 scaffolding3_startup/
-├── app.py                    # Backend Flask app
-├── starter_preprocess.py     # Preprocessing, cleaning and analysis
-├── templates/
-│   └── index.html            # Frontend UI
-├── docs/
-│   ├── screenshots/          # Screenshots of app
-├── README.md                 # Documentation on the project
-└── requirements.txt          # Requirements (Flask, requests, bs4, nltk)
+├── app.py                    # Backend Flask app 
+├── starter_preprocess.py     # Preprocessing, cleaning and analysis 
+├── templates/                
+│   └── index.html            # Frontend UI                         
+├── docs/                     
+│   ├── screenshots/          # Screenshots of app 
+├── README.md                 # Documentation on the project 
+└── requirements.txt          # Requirements (Flask, requests, bs4, nltk) 
