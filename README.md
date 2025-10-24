@@ -106,7 +106,7 @@ pip install -r requirements.txt
 
 Run the app 
 python app.py 
-
+make the URL public or go to ports and click the link
 Open in your browser 
 Go to → http://127.0.0.1:5000 
 
