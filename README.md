@@ -1,4 +1,4 @@
-# Scaffolding Assignment 3 - Gutenberg text cleaner
+# Gutenberg text cleaner
 
 Course: Introduction to AI - Fall 2025
 Student: raghulch
